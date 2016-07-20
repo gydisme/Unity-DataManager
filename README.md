@@ -14,6 +14,21 @@ Download the Assets/DataManager/ folder and add to your Unity 3D project.
 
 QuickStart
 =
+Use the DataManager in your project
+```
+1. using DataManagement;
+2. Table table = DataManager.GetTable( tableName );
+3. Data data = DataManager.GetData( tableName, key );
+   Data data = table.GetData( key );
+4. object value = table.GetValue( key, field );
+   object value = data.GetValue( field );
+   The value should be cast to your real type.
+   For Example, string itemName = (string)value; or use:
+   T value = table.GetValue<T>( key, field );
+   T value = data.GetValue<T>( field );
+   When the original type of value could be converted to the T type, it will be converted to T.
+```
+
 Create Table for Unity (the step depends on the requirements of the reader )
 ```
 1. Select the datasource files in Unity
@@ -44,21 +59,6 @@ Create your own reader/parser/converter
 2. Override the Get/Parse method.
 3. If your data could be parsed to List<List<string>>,
    You could just use the TableConverterList to convert to Table.
-```
-
-Use the DataManager in your project
-```
-1. using DataManagement;
-2. Table table = DataManager.GetTable( tableName );
-3. Data data = DataManager.GetData( tableName, key );
-   Data data = table.GetData( key );
-4. object value = table.GetValue( key, field );
-   object value = data.GetValue( field );
-   The value should be cast to your real type.
-   For Example, string itemName = (string)value; or use:
-   T value = table.GetValue<T>( key, field );
-   T value = data.GetValue<T>( field );
-   When the original type of value could be converted to the T type, it will be converted to T.
 ```
 
 Support
