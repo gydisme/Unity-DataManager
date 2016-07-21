@@ -38,11 +38,12 @@ The Table requirements when initializing
 
 The CSV tables for DataManager
 ```
-1. Support System Types:String/Boolean/Single/Int32..etc
+1. Support System Types:String/Boolean/Single/Int32..etc.
 2. Support Dictionary by set the type "<>", and List is "[]"
    For Example: "<String,Int32>" means Dictionary<string,int>
                 "[Single]" means List<float>
-3. Enum type is not supported for now ( future will )
+3. Enum type is not supported for now ( it will be in the future ).
+4. The first field will always be the key, the value of key should be Unique.
 ```
 
 Create Table for Unity( the step depends on the requirements of the reader )
