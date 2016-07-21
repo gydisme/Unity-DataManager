@@ -29,7 +29,23 @@ Use the DataManager in your project
    When the original type of value could be converted to the T type, it will be converted to T.
 ```
 
-Create Table for Unity (the step depends on the requirements of the reader )
+The Table requirements when initializing
+```
+1. Name of the table
+2. Fields
+3. Types
+```
+
+The CSV tables for DataManager
+```
+1. Support System Types:String/Boolean/Single/Int32..etc
+2. Support Dictionary by set the type "<>", and List is "[]"
+   For Example: "<String,Int32>" means Dictionary<string,int>
+                "[Single]" means List<float>
+3. Enum type is not supported for now ( future will )
+```
+
+Create Table for Unity( the step depends on the requirements of the reader )
 ```
 1. Select the datasource files in Unity
 2. Right-click on slected files
