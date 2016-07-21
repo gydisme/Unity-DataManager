@@ -10,7 +10,8 @@ The DataManager allows users to load ANY type of data to Unity 3D games, and the
 
 Installation
 =
-Download the Assets/DataManager/ folder and add to your Unity 3D project.
+Download the lastest release: https://github.com/gydisme/Unity-DataManager/releases
+Start your project with the release or add Assets/DataManager/ folder to your project.
 
 QuickStart
 =
