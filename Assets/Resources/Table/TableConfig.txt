@@ -1,3 +1,0 @@
-name,path,reader,parser,converter,preload
-String,String,String,String,String,Boolean
-Word,Table/,TableReaderResource,TableParserCsv,TableConverterList,TRUE
