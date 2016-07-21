@@ -48,9 +48,13 @@ The CSV tables for DataManager
 
 Create Table for Unity( the step depends on the requirements of the reader )
 ```
-1. Select the datasource files in Unity
-2. Right-click on slected files
-3. Choose DataManager/CreateTXT of Selected Files
+1. The supported text formats(TextAsset) of Unity 3D are:
+   txt/html/htm/xml/bytes/json/csv/yaml/fnt
+   (https://docs.unity3d.com/Manual/class-TextAsset.html)
+   if your table format is not on the list, go 2, otherwise just add/copy it to Resource/Table/
+2. Select the datasource files in Unity
+3. Right-click on slected files
+4. Choose DataManager/CreateTXT of Selected Files
 ```
 
 Config the tables
