@@ -1,12 +1,10 @@
-﻿using UnityEngine;
-using System.IO;
+﻿using System.IO;
 using System.Text;
 using System.Collections.Generic;
 using DataManagement;
 
 public class TableWriterCsv : TableWriter
 {
-#if UNITY_EDITOR
 	public override void Write( string path, Table table )
 	{
 		StringBuilder builder = new StringBuilder();
@@ -47,5 +45,4 @@ public class TableWriterCsv : TableWriter
 		value = value.Contains( EDataManager.COMMA_STRING ) ? EDataManager.DOUBLE_QUOTATION_MARKS_STRING + value + EDataManager.DOUBLE_QUOTATION_MARKS_STRING : value;
 		str = string.IsNullOrEmpty( str ) ? value : str + EDataManager.COMMA_STRING + value;
 	}
-#endif
 }

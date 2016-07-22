@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿#if UNITY_EDITOR
+using UnityEngine;
+#endif
 using System;
 using DataManagement;
 
@@ -8,8 +10,9 @@ public class TableReaderResource : TableReader
 	{
 		if( string.IsNullOrEmpty( path ) )
 			return null;
-
+#if UNITY_EDITOR
 		TextAsset result = Resources.Load( path ) as TextAsset;
+#endif
 		return ( null == result ) ? string.Empty : result.text;
 	}
 }

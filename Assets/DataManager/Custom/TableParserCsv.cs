@@ -1,5 +1,4 @@
-﻿using UnityEngine;
-using System.IO;
+﻿using System.IO;
 using System.Text;
 using System.Collections.Generic;
 using DataManagement;
@@ -17,7 +16,7 @@ public class TableParserCsv : TableParser
 		}
 		catch
 		{
-			Debug.LogError( "read text asset have an exception:" + input );
+			TableTools.Log( TableTools.LogLevel.ERROR, "read text asset have an exception:" + input );
 		}
 
 		return new List<List<string>>();

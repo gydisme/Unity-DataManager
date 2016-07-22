@@ -1,4 +1,3 @@
-using UnityEngine;
 using System;
 using System.Collections.Generic;
 
@@ -42,7 +41,7 @@ namespace DataManagement
 				return data.Copy();
 			}
 
-			Debug.LogWarning( "there is not key: " + key + " in table: " + Name );
+			TableTools.Log( TableTools.LogLevel.WARNING, "there is not key: " + key + " in table: " + Name );
 			return null;
 		}
 
@@ -52,7 +51,7 @@ namespace DataManagement
 			if( data != null )
 				return data.GetValue( field );
 
-			Debug.LogWarning( "there is not key: " + key + " in table: " + Name );
+			TableTools.Log( TableTools.LogLevel.WARNING, "there is not key: " + key + " in table: " + Name );
 			return null;
 		}
 
@@ -70,7 +69,7 @@ namespace DataManagement
 			int index = _GetFieldIndex( field );
 			if( 0 > index || _Types.Count <= index )
 			{
-				Debug.LogWarning( "there is not field name: " + field + " in table: " + Name );
+				TableTools.Log( TableTools.LogLevel.WARNING, "there is not field name: " + field + " in table: " + Name );
 				return string.Empty;
 			}
 			
@@ -93,7 +92,7 @@ namespace DataManagement
 			int index = _GetFieldIndex( field );
 			if( 0 > index || _Types.Count <= index )
 			{
-				Debug.LogWarning( "there is not field name: " + field + " in table: " + Name );
+				TableTools.Log( TableTools.LogLevel.WARNING, "there is not field name: " + field + " in table: " + Name );
 				return false;
 			}
 
@@ -121,12 +120,12 @@ namespace DataManagement
 
 		public void Print()
 		{
-			Debug.LogWarning( "===== Table: " + Name + " =====" );
+			TableTools.Log( TableTools.LogLevel.WARNING, "===== Table: " + Name + " =====" );
 			foreach( KeyValuePair<object, Data> pair in _key2Data )
 			{
 				pair.Value.Print();
 			}
-			Debug.LogWarning( "===== Table Print Completed =====" );
+			TableTools.Log( TableTools.LogLevel.WARNING, "===== Table Print Completed =====" );
 		}
 	}
 }

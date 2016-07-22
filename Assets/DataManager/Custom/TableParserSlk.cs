@@ -1,4 +1,3 @@
-using UnityEngine;
 using System;
 using System.IO;
 using System.Text;
@@ -22,7 +21,7 @@ public class TableParserSlk : TableParser
 		}
 		catch
 		{
-			Debug.LogError( "read text asset have an exception:" + input );
+			TableTools.Log( TableTools.LogLevel.ERROR, "read text asset have an exception:" + input );
 		}
 
 		return new List<List<string>>();

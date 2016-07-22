@@ -1,10 +1,13 @@
+#if UNITY_EDITOR
 using UnityEngine;
 using UnityEditor;
+#endif
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
+#if UNITY_EDITOR
 namespace DataManagement
 {
 	public static class TableEditorTools
@@ -47,4 +50,4 @@ namespace DataManagement
 		}
 	}
 }
-
+#endif

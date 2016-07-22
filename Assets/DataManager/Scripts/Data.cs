@@ -1,5 +1,4 @@
-﻿using UnityEngine;
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -149,7 +148,7 @@ namespace DataManagement
 				index = _Fields.IndexOf( field );
 				if( 0 > index || list.Count <= index )
 				{
-					Debug.LogError( "index out of range: " + index + ", size:" + list.Count );
+					TableTools.Log( TableTools.LogLevel.ERROR, "index out of range: " + index + ", size:" + list.Count );
 					index = -1;
 				}
 
@@ -160,16 +159,16 @@ namespace DataManagement
 
 		public void Print()
 		{
-			Debug.Log( "===== Key: " + Key + " =====" );
+			TableTools.Log( TableTools.LogLevel.DEFAULT, "===== Key: " + Key + " =====" );
 
 			for( int i = 0; i < _Values.Count; ++i )
 			{
-				Debug.Log( "column name: " + _Fields[i] + ", column type: " + _Types[i] );
+				TableTools.Log( TableTools.LogLevel.DEFAULT, "column name: " + _Fields[i] + ", column type: " + _Types[i] );
 
 				_Print( _Values[i] );
 			}
 
-			Debug.Log( "===== Data Print Completed =====" );
+			TableTools.Log( TableTools.LogLevel.DEFAULT, "===== Data Print Completed =====" );
 		}
 
 		private void _Print( object value )
@@ -187,13 +186,13 @@ namespace DataManagement
 				IDictionary dict = (IDictionary)value;
 				foreach( DictionaryEntry pair in dict )
 				{
-					Debug.Log( "key: " + pair.Key );
+					TableTools.Log( TableTools.LogLevel.DEFAULT, "key: " + pair.Key );
 					_Print( pair.Value );
 				}
 			}
 			else
 			{
-				Debug.Log( "value: " + value );
+				TableTools.Log( TableTools.LogLevel.DEFAULT, "value: " + value );
 			}
 		}
 	}

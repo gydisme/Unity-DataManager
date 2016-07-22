@@ -1,4 +1,3 @@
-using UnityEngine;
 using System;
 using System.ComponentModel;
 using System.Reflection;
@@ -80,7 +79,7 @@ namespace DataManagement
 		{
 			if( string.IsNullOrEmpty( tableName ) )
 			{
-				Debug.LogError( "failed to get source; table=string.Empty" );
+				TableTools.Log( TableTools.LogLevel.ERROR, "failed to get source; table=string.Empty" );
 				return null;
 			}
 				
@@ -95,19 +94,19 @@ namespace DataManagement
 				
 			if( reader == null )
 			{
-				Debug.LogError("failed to get reader; table=" + tableName );
+				TableTools.Log( TableTools.LogLevel.ERROR,"failed to get reader; table=" + tableName );
 				return null;
 			}
 
 			if( parser == null )
 			{
-				Debug.LogError("failed to get parser; table=" + tableName );
+				TableTools.Log( TableTools.LogLevel.ERROR,"failed to get parser; table=" + tableName );
 				return null;
 			}
 
 			if( converter == null )
 			{
-				Debug.LogError("failed to get converter; table=" + tableName );
+				TableTools.Log( TableTools.LogLevel.ERROR,"failed to get converter; table=" + tableName );
 				return null;
 			}
 
@@ -153,14 +152,14 @@ namespace DataManagement
 				Type type = Type.GetType( className );
 				if( null == type )
 				{
-					Debug.LogError("this class name: " + className + " can't reflection(class must inherit CDataSource or CDataParser)" );
+					TableTools.Log( TableTools.LogLevel.ERROR,"this class name: " + className + " can't reflection(class must inherit CDataSource or CDataParser)" );
 					return null;
 				}
 				
 				constructor = type.GetConstructor( new Type[]{} );
 				if( null == constructor )
 				{
-					Debug.LogError("there is not default constructor on class name: " + className );
+					TableTools.Log( TableTools.LogLevel.ERROR,"there is not default constructor on class name: " + className );
 					return null;
 				}
 
@@ -183,7 +182,7 @@ namespace DataManagement
 				config.table = _LoadTable( tableName );
 				if( config.table == null )
 				{
-					Debug.LogError( "failed to get table: " + tableName );
+					TableTools.Log( TableTools.LogLevel.ERROR, "failed to get table: " + tableName );
 					return null;
 				}
 			}

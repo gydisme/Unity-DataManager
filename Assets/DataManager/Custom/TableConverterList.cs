@@ -1,5 +1,4 @@
-﻿using UnityEngine;
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
@@ -20,7 +19,7 @@ public class TableConverterList : TableConverter
 	{
 		if( null == parsedData || parsedData.Count == 0 )
 		{
-			Debug.LogError( "No Table or Empty: " + name );
+			TableTools.Log( TableTools.LogLevel.ERROR, "No Table or Empty: " + name );
 			return null;
 		}
 
@@ -71,7 +70,7 @@ public class TableConverterList : TableConverter
 			// this is duplicate key
 			if( key2Data.ContainsKey( values[0] ) )
 			{
-				Debug.LogError( "there is duplicate key: " + values[0] + " at row: " + i + " in table: " + name );
+				TableTools.Log( TableTools.LogLevel.ERROR, "there is duplicate key: " + values[0] + " at row: " + i + " in table: " + name );
 				continue;
 			}
 			
@@ -137,7 +136,7 @@ public class TableConverterList : TableConverter
 			}
 			catch( Exception e )
 			{
-				Debug.LogError( "table=" + name + ", row=" + row + ", column=" + columnName + ", value=" + valueStr + ", exception=" + e.ToString() );
+				TableTools.Log( TableTools.LogLevel.ERROR, "table=" + name + ", row=" + row + ", column=" + columnName + ", value=" + valueStr + ", exception=" + e.ToString() );
 			}
 
 			System.Collections.IDictionary dict = null;
@@ -195,7 +194,7 @@ public class TableConverterList : TableConverter
 				}
 				catch( Exception )
 				{
-					Debug.LogError( "there is exception at row: " + row + " and column name: "+ columnName + " in table: " + name );
+					TableTools.Log( TableTools.LogLevel.ERROR, "there is exception at row: " + row + " and column name: "+ columnName + " in table: " + name );
 				}
 			}
 			else
@@ -206,15 +205,15 @@ public class TableConverterList : TableConverter
 				}
 				catch( FormatException )
 				{
-					Debug.LogError( "there is error value: " + valueStr + " at row: " + row + " and column name: " + columnName + " in table: " + name );
+					TableTools.Log( TableTools.LogLevel.ERROR, "there is error value: " + valueStr + " at row: " + row + " and column name: " + columnName + " in table: " + name );
 				}
 				catch( ArgumentNullException )
 				{
-					Debug.LogError( "there is error type: " + typeStr + " at column name: " + columnName + " in table: " + name );
+					TableTools.Log( TableTools.LogLevel.ERROR, "there is error type: " + typeStr + " at column name: " + columnName + " in table: " + name );
 				}
 				catch( Exception )
 				{
-					Debug.LogError( "there is exception at row: " + row + " and column name: "+ columnName + " in table: " + name );
+					TableTools.Log( TableTools.LogLevel.ERROR, "there is exception at row: " + row + " and column name: "+ columnName + " in table: " + name );
 				}
 			}
 		}
@@ -334,7 +333,7 @@ public class TableConverterList : TableConverter
 				}
 				catch( Exception )
 				{
-					Debug.LogError( "there is exception, value: " + valueStr + ", type: " + valueType );
+					TableTools.Log( TableTools.LogLevel.ERROR, "there is exception, value: " + valueStr + ", type: " + valueType );
 				}
 			}
 			else
@@ -345,15 +344,15 @@ public class TableConverterList : TableConverter
 				}
 				catch( FormatException )
 				{
-					Debug.LogError( "there is error value: " + valueStr );
+					TableTools.Log( TableTools.LogLevel.ERROR, "there is error value: " + valueStr );
 				}
 				catch( ArgumentNullException )
 				{
-					Debug.LogError( "there is error type: " + typeStr );
+					TableTools.Log( TableTools.LogLevel.ERROR, "there is error type: " + typeStr );
 				}
 				catch( Exception )
 				{
-					Debug.LogError( "there is exception, value: " + valueStr + ", type: " + valueType );
+					TableTools.Log( TableTools.LogLevel.ERROR, "there is exception, value: " + valueStr + ", type: " + valueType );
 				}
 			}
 		}
