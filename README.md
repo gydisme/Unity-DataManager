@@ -1,6 +1,6 @@
-Unity-DataManager
+DataManager
 =
-The DataManager allows users to load ANY type of data to Unity 3D games, and the use is easy.
+The DataManager allows users to load ANY type of data, and it's easy to use. This project is created for Unity 3D games, but it could be used in any projects! Try it, and give me feedbacks :)
 
 - Author: Gyd Tseng
 - Email: kingterrygyd@gmail.com
