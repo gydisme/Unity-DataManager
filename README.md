@@ -95,9 +95,3 @@ Email Me, Let's talk :)
 Contributing
 =
 Your contribution will be licensed under the MIT license for this project.
-
-
-
-
-Quickstart
-----------
