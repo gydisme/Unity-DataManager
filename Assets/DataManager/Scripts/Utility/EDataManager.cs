@@ -6,11 +6,11 @@ namespace DataManagement
 	public static class EDataManager
 	{
 		#region Common Definition
-		public static readonly string TABLE_PATH = "Table/";
+		public static readonly string DEFAULT_TABLE_PATH = "";
 		public static readonly string TABLE_CONFIG = "TableConfig";
-		public static readonly string CONFIG_READER = "TableReaderResource";
-		public static readonly string CONFIG_PARSER = "TableParserCsv";
-		public static readonly string CONFIG_CONVERTER = "TableConverterList";
+		public static readonly string DEFAULT_READER = "TableReaderResource";
+		public static readonly string DEFAULT_PARSER = "TableParserCsv";
+		public static readonly string DEFAULT_CONVERTER = "TableConverterList";
 		#endregion
 
 		#region Column Name

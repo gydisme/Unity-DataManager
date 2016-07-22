@@ -30,6 +30,14 @@ namespace DataManagement
 			public TableParser parser;
 			public TableConverter converter;
 			public Table table;
+
+			public TableInfo()
+			{
+				path = EDataManager.DEFAULT_TABLE_PATH;
+				reader = _Instance._GetConstroctor( EDataManager.DEFAULT_READER ) as TableReader;
+				parser = _Instance._GetConstroctor( EDataManager.DEFAULT_PARSER ) as TableParser;
+				converter = _Instance._GetConstroctor( EDataManager.DEFAULT_CONVERTER ) as TableConverter;
+			}
 		}
 
 		private Dictionary<string, TableInfo> _tableInfo = new Dictionary<string, TableInfo>();
@@ -37,39 +45,34 @@ namespace DataManagement
 
 		private DataManager()
 		{
-			// init table info
-			TableInfo info = new TableInfo();
-			_tableInfo[EDataManager.TABLE_CONFIG] = info;
-			info.path = EDataManager.TABLE_PATH;
-			info.reader = _GetConstroctor( EDataManager.CONFIG_READER ) as TableReader;
-			info.parser = _GetConstroctor( EDataManager.CONFIG_PARSER ) as TableParser;
-			info.converter = _GetConstroctor( EDataManager.CONFIG_CONVERTER ) as TableConverter;
-			info.table = _LoadTable( EDataManager.TABLE_CONFIG );
-			Table configTable = info.table;
-			if( null != configTable )
+			_Restart();
+		}
+
+		public static void Restart()
+		{
+			_Instance._Restart();
+		}
+
+		private void _Restart()
+		{
+			_tableInfo.Clear();
+		}
+
+		public static void Preload()
+		{
+			_Instance._Preload();
+		}
+
+		private void _Preload()
+		{
+			Table configTable = GetTable( EDataManager.TABLE_CONFIG );
+			foreach( string tableName in configTable.Keys )
 			{
-				foreach( object key in configTable.Keys )
+				TableInfo info = _GetTableInfo( tableName );
+				if( info.table == null && configTable.GetValue<bool>( tableName, EDataManager.PRELOAD ) )
 				{
-					string tableName = configTable.GetValue<string>( key, EDataManager.NAME );
-
-					info = new TableInfo();
-					_tableInfo[tableName] = info;
-					info.path = configTable.GetValue<string>( key, EDataManager.PATH );
-					info.reader = _GetConstroctor( configTable.GetValue<string>( key, EDataManager.READER ) ) as TableReader;
-					info.parser = _GetConstroctor( configTable.GetValue<string>( key, EDataManager.PARSER ) ) as TableParser;
-					info.converter = _GetConstroctor( configTable.GetValue<string>( key, EDataManager.CONVERTER ) ) as TableConverter;
-					bool preload = configTable.GetValue<bool>( key, EDataManager.PRELOAD );
-
-					if( preload )
-					{
-						info.table = _LoadTable( tableName );
-					}
+					info.table = _LoadTable( tableName );
 				}
-			}
-			else
-			{
-				Debug.LogError(  "Load failed:" + EDataManager.TABLE_CONFIG );
-				return;
 			}
 		}
 
@@ -81,11 +84,14 @@ namespace DataManagement
 				return null;
 			}
 				
-			TableInfo config = _GetTableInfo( tableName );
-			string path = config.path;
-			TableReader reader = config.reader;
-			TableParser parser = config.parser;
-			TableConverter converter = config.converter;
+			TableInfo info = _GetTableInfo( tableName );
+			if( info.table != null )
+				return info.table;
+			
+			string path = info.path;
+			TableReader reader = info.reader;
+			TableParser parser = info.parser;
+			TableConverter converter = info.converter;
 				
 			if( reader == null )
 			{
@@ -118,10 +124,22 @@ namespace DataManagement
 			{
 				info = new TableInfo();
 				_tableInfo[tableName] = info;
-				info.path = _tableInfo[EDataManager.TABLE_CONFIG].path;
-				info.reader = _tableInfo[EDataManager.TABLE_CONFIG].reader;
-				info.parser = _tableInfo[EDataManager.TABLE_CONFIG].parser;
-				info.converter = _tableInfo[EDataManager.TABLE_CONFIG].converter;
+
+				if( string.Compare( tableName, EDataManager.TABLE_CONFIG ) == 0)
+				{
+					info.table = _LoadTable( tableName );
+				}
+				else
+				{
+					Table configTable = GetTable( EDataManager.TABLE_CONFIG );
+					if( configTable.Keys.Contains( tableName ) )
+					{
+						info.path = configTable.GetValue<string>( tableName, EDataManager.PATH );
+						info.reader = _GetConstroctor( configTable.GetValue<string>( tableName, EDataManager.READER ) ) as TableReader;
+						info.parser = _GetConstroctor( configTable.GetValue<string>( tableName, EDataManager.PARSER ) ) as TableParser;
+						info.converter = _GetConstroctor( configTable.GetValue<string>( tableName, EDataManager.CONVERTER ) ) as TableConverter;
+					}
+				}
 			}
 
 			return info;

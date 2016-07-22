@@ -8,12 +8,11 @@ public class TableParserCsv : TableParser
 {
 	public override object Parse( object input )
 	{
-		List<List<string>> result = new List<List<string>>();
 		try
 		{
 			using( StringReader readFile = new StringReader( (string)input ) )
 			{
-				result = _Parse( readFile );
+				return _Parse( readFile );
 			}
 		}
 		catch
@@ -21,7 +20,7 @@ public class TableParserCsv : TableParser
 			Debug.LogError( "read text asset have an exception:" + input );
 		}
 
-		return result;
+		return new List<List<string>>();
 	}
 
 	private List<List<string>> _Parse( TextReader readFile )

@@ -21,6 +21,11 @@ namespace DataManagement
 			return _List.IndexOf( item );
 		}
 
+		public bool Contains( T item )
+		{
+			return _List.Contains( item );
+		}
+
 		public bool IsFixedSize { get { return false; } }
 
 		public IEnumerator GetEnumerator()
