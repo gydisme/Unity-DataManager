@@ -15,6 +15,11 @@ Start your project with the release or add Assets/DataManager/ folder to your pr
 
 QuickStart
 =
+Supported tables
+```
+csv / slk
+```
+
 Use the DataManager in your project
 ```
 1. using DataManagement;
@@ -37,7 +42,7 @@ The Table requirements when initializing
 3. Types
 ```
 
-The CSV tables for DataManager
+The tables for DataManager
 ```
 1. Support System Types:String/Boolean/Single/Int32..etc.
 2. Support Dictionary by set the type "<>", and List is "[]"
