@@ -10,9 +10,14 @@ public class TableReaderResource : TableReader
 	{
 		if( string.IsNullOrEmpty( path ) )
 			return null;
+		
 #if UNITY_EDITOR
 		TextAsset result = Resources.Load( path ) as TextAsset;
-#endif
 		return ( null == result ) ? string.Empty : result.text;
+#else
+		// todo
+		return null;
+#endif
+
 	}
 }

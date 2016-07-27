@@ -34,7 +34,7 @@ namespace DataManagement
 					break;
 			}
 			#else
-			log = level.ToString() + " - " log;
+			log = level.ToString() + " - " + log;
 			System.Console.WriteLine( log );
 			#endif
 		}
