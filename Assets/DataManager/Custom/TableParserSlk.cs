@@ -27,100 +27,105 @@ public class TableParserSlk : TableParser
 		return new List<List<string>>();
 	}
 
+	int _x = 1;
+	int _y = 1;
+	int _xMax = 0;
+	int _yMax = 0;
+	delegate void _recordParserDelegate( string[] fields, ref List<List<string>> result );
+	static Dictionary<string,_recordParserDelegate> _recordParser;
+
 	private List<List<string>> _Parse( StreamReader reader )
 	{
-		Dictionary<string,List<string[]>> _data = new Dictionary<string, List<string[]>>();
+		if( _recordParser == null )
+		{
+			_recordParser = new Dictionary<string, _recordParserDelegate>();
+			_recordParser["B"] = ParseRecord_B;
+			_recordParser["C"] = ParseRecord_C;
+			_recordParser["F"] = ParseRecord_F;
+		}
+
 		string line = string.Empty;
+		List<List<string>> result = new List<List<string>>();
 
 		while( null != ( line = reader.ReadLine() ) )
 		{
 			string[] currentRecord = line.Split( ';' );
 			if( currentRecord.Length > 0 )
 			{
-				List<string[]> temp;
-				if( !_data.TryGetValue( currentRecord[0], out temp ) )
-				{
-					temp = new List<string[]>();
-					_data[currentRecord[0]] = temp;
-				}
-					
-				temp.Add( currentRecord );
+				string recordType = currentRecord[0];
+				_recordParserDelegate d;
+				if( _recordParser.TryGetValue( recordType, out d ) )
+					d( currentRecord, ref result );
 			}
 		}
-
-		// init result
-		List<List<string>> result = null;
-		List<string[]> records;
-		if( _data.TryGetValue( "B", out records ) )
-		{
-			result = ParseRecord_B( records[0] );
-		}
-		else
-			return new List<List<string>>();
-
-		if( _data.TryGetValue( "C", out records ) )
-			ParseRecord_C( records, ref result );
-		else
-			return new List<List<string>>();
-
 		return result;
 	}
 
-	private List<List<string>> ParseRecord_B( string[] fields )
+	private void ParseRecord_B( string[] record, ref List<List<string>> result )
 	{
-		List<List<string>> result = null;
-		int columns = 0;
-		int rows = 0;
-		for( int i=1,imax=fields.Length;i<imax;i++ )
+		for( int i=1,imax=record.Length;i<imax;i++ )
 		{
-			string field = fields[i];
+			string field = record[i];
 			char fieldType = field[0];
 			if( fieldType == 'X' )
 			{
-				columns = Convert.ToInt32( field.Substring( 1 ) );
+				_xMax = Convert.ToInt32( field.Substring( 1 ) );
 			}
 			else if( fieldType == 'Y' )
 			{
-				rows = Convert.ToInt32( field.Substring( 1 ) );
+				_yMax = Convert.ToInt32( field.Substring( 1 ) );
 			}
 		}
 
 		result = new List<List<string>>();
-		for( int i=0;i<rows;i++ )
+		if( _xMax > 0 && _yMax > 0 )
 		{
-			List<string> row = new List<string>();
-			for( int j=0;j<columns;j++ )
+			for( int i=0;i<_yMax;i++ )
 			{
-				row.Add( string.Empty );
+				List<string> row = new List<string>();
+				for( int j=0;j<_xMax;j++ )
+				{
+					row.Add( string.Empty );
+				}
+				result.Add( row );
 			}
-			result.Add( row );
 		}
-
-		return result;
 	}
 
-	private void ParseRecord_C( List<string[]> records, ref List<List<string>> result )
+	private void ParseRecord_C( string[] record, ref List<List<string>> result )
 	{
-		int column = 1;
-		int row = 1;
-		foreach( string[] fields in records )
+		for( int i=1,imax=record.Length;i<imax;i++ )
 		{
-			for( int i=1,imax=fields.Length;i<imax;i++ )
+			string field = record[i];
+			char fieldType = field[0];
+			if( fieldType == 'X' )
 			{
-				string field = fields[i];
-				char fieldType = field[0];
-				if( fieldType == 'X' )
-				{
-					column = Convert.ToInt32( field.Substring( 1 ) );
-				}
-				else if( fieldType == 'Y' )
-				{
-					row = Convert.ToInt32( field.Substring( 1 ) );
-				}
-				else if( fieldType == 'K' )
-				{
-					result[row-1][column-1] = field.Substring( 1 ).Trim( new char[] { '\"' } );
-				}
+				_x = Convert.ToInt32( field.Substring( 1 ) );
+			}
+			else if( fieldType == 'Y' )
+			{
+				_y = Convert.ToInt32( field.Substring( 1 ) );
+			}
+			else if( fieldType == 'K' )
+			{
+				result[_y-1][_x-1] = field.Substring( 1 ).Trim( new char[] { '\"' } );
+			}
+		}
+	}
+
+	private void ParseRecord_F( string[] record, ref List<List<string>> result )
+	{
+		for( int i=1,imax=record.Length;i<imax;i++ )
+		{
+			string field = record[i];
+			char fieldType = field[0];
+			if( fieldType == 'X' )
+			{
+				_x = Convert.ToInt32( field.Substring( 1 ) );
+			}
+			else if( fieldType == 'Y' )
+			{
+				_y = Convert.ToInt32( field.Substring( 1 ) );
 			}
 		}
 	}
