@@ -6,7 +6,7 @@ The DataManager allows users to load ANY type of data, and it's easy to use. Thi
 - Email: kingterrygyd@gmail.com
 - Twitter: @kingterrygyd
 - Facebook: facebook.com/barbariangyd
-- [![Donate via PayPal](https://img.shields.io/badge/Donate-PayPal-blue.svg)](https://paypal.me/gydisme)
+- [![Donate via PayPal](https://img.shields.io/badge/Donate-PayPal-blue.svg)](https://www.paypal.com/ncp/payment/TY3G9Z2WJR2JJ)
 
 Installation
 =
